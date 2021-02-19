@@ -1,0 +1,148 @@
+<section [formGroup]="intervalComputeConfigForm" fxLayout="column">
+  <label translate class="tb-title no-padding">tb.rulenode.list-attributes</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #latestTimeseriesChipList>
+      <mat-chip
+        *ngFor="let key of intervalComputeConfigForm.get('listKeyNames').value;"
+        (removed)="removeKey(key, 'listKeyNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-attributes' | translate}}"
+             style="max-width: 200px;"
+             [matChipInputFor]="latestTimeseriesChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'listKeyNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+    <mat-hint innerHTML="{{ 'tb.rulenode.list-attributes' | translate }}"></mat-hint>
+  </mat-form-field>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.hh-start</mat-label>
+      <input type="number" step="1" min="0" max="59" matInput formControlName="hhStart" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('hhStart').hasError('required')">
+        {{ 'tb.rulenode.hh-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('hhStart').hasError('min')">
+        {{ 'tb.rulenode.hh-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('hhStart').hasError('max')">
+        {{ 'tb.rulenode.hh-value-range' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.hh-key</mat-label>
+      <input matInput formControlName="hhKey" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('hhKey').hasError('required')">
+        {{ 'tb.rulenode.hh-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.dd-start</mat-label>
+      <input type="number" step="1" min="0" max="23" matInput formControlName="ddStart" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('ddStart').hasError('required')">
+        {{ 'tb.rulenode.dd-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('ddStart').hasError('min')">
+        {{ 'tb.rulenode.dd-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('ddStart').hasError('max')">
+        {{ 'tb.rulenode.dd-value-range' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.dd-key</mat-label>
+      <input matInput formControlName="ddKey" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('ddKey').hasError('required')">
+        {{ 'tb.rulenode.dd-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.mm-start</mat-label>
+      <input type="number" step="1" min="0" max="31" matInput formControlName="mmStart" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('mmStart').hasError('required')">
+        {{ 'tb.rulenode.mm-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('mmStart').hasError('min')">
+        {{ 'tb.rulenode.mm-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('mmStart').hasError('max')">
+        {{ 'tb.rulenode.mm-value-range' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.mm-key</mat-label>
+      <input matInput formControlName="mmKey" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('mmKey').hasError('required')">
+        {{ 'tb.rulenode.mm-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.yy-start</mat-label>
+      <input type="number" step="1" min="1" max="12" matInput formControlName="yyStart" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('yyStart').hasError('required')">
+        {{ 'tb.rulenode.yy-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('yyStart').hasError('min')">
+        {{ 'tb.rulenode.yy-value-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="intervalComputeConfigForm.get('yyStart').hasError('max')">
+        {{ 'tb.rulenode.yy-value-range' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.yy-key</mat-label>
+      <input matInput formControlName="yyKey" required>
+      <mat-error *ngIf="intervalComputeConfigForm.get('yyKey').hasError('required')">
+        {{ 'tb.rulenode.yy-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <mat-checkbox fxFlex formControlName="totalIsSave" style="padding-bottom: 16px;">
+    {{ 'tb.rulenode.total-is-save' | translate }}
+  </mat-checkbox>
+  <label translate class="tb-title">tb.rulenode.filter-entity</label>
+  <mat-checkbox fxFlex formControlName="checkEntityFilter" style="padding-bottom: 16px;">
+    {{ 'tb.rulenode.is-filter-entity' | translate }}
+  </mat-checkbox>
+  <div fxLayout="column" *ngIf="intervalComputeConfigForm.get('checkEntityFilter').value">
+    <mat-label translate>tb.rulenode.filter-type</mat-label>
+    <mat-label></mat-label>
+    <div fxLayout="column" style="padding-bottom: 16px;">
+      <mat-form-field fxFlex class="mat-block">
+        <mat-select formControlName="filterType">
+          <mat-option *ngFor="let type of filterTypes" [value]="type">
+            {{ filterTypeTranslation.get(type) | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-label></mat-label>
+    </div>
+    <div fxLayout="column">
+      <mat-form-field fxFlex floatLabel="always" class="mat-block">
+        <mat-label></mat-label>
+        <mat-chip-list #listNamesChipList>
+          <mat-chip
+            *ngFor="let key of intervalComputeConfigForm.get('listEntityNames').value;"
+            (removed)="removeKey(key, 'listEntityNames')">
+            {{key}}
+            <mat-icon matChipRemove>close</mat-icon>
+          </mat-chip>
+          <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+                 [matChipInputFor]="listNamesChipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 (matChipInputTokenEnd)="addKey($event, 'listEntityNames')"
+                 [matChipInputAddOnBlur]="true"/>
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+  </div>
+</section>

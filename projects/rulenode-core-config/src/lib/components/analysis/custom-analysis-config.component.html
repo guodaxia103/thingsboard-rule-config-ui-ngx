@@ -1,0 +1,107 @@
+<section [formGroup]="customAnalysisForm" fxLayout="column">
+  <label translate class="tb-title tb-required">tb.rulenode.custom.calculate-result</label>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.custom.calculate-result-entity</mat-label>
+      <input matInput formControlName="fatherDeviceName" required>
+      <mat-error *ngIf="customAnalysisForm.get('fatherDeviceName').hasError('required')">
+        {{ 'tb.rulenode.custom.calculate-result-entity-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.custom.calculate-result-entity-key</mat-label>
+      <input matInput formControlName="fatherKey" required>
+      <mat-error *ngIf="customAnalysisForm.get('fatherKey').hasError('required')">
+        {{ 'tb.rulenode.custom.calculate-result-entity-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <label translate class="tb-title tb-required">tb.rulenode.specific.value-data-source</label>
+  <tb-kvnl-map-config
+    required
+    formControlName="dataSource"
+    requiredText="tb.rulenode.specific.value-data-source-required"
+    numText="tb.rulenode.specific.value-data-source-num"
+    numRequiredText="tb.rulenode.specific.value-data-source-num-required"
+    nameText="tb.rulenode.specific.value-data-source-name"
+    nameRequiredText="tb.rulenode.specific.value-data-source-name-required"
+    keyText="tb.rulenode.specific.value-data-source-key"
+    keyRequiredText="tb.rulenode.specific.value-data-source-key-required"
+    valText="tb.rulenode.specific.value-data-source-value"
+    valRequiredText="tb.rulenode.specific.value-data-source-value-required">
+  </tb-kvnl-map-config>
+  <label translate class="tb-title tb-required">tb.rulenode.custom.calculate-formula</label>
+  <mat-form-field fxFlex class="mat-block">
+    <mat-label translate>tb.rulenode.custom.calculate-formula</mat-label>
+    <input matInput formControlName="formula" required>
+    <mat-error *ngIf="customAnalysisForm.get('formula').hasError('required')">
+      {{ 'tb.rulenode.custom.calculate-formula-required' | translate }}
+    </mat-error>
+  </mat-form-field>
+
+  <label translate class="tb-title tb-required" >tb.rulenode.custom.calculate-latest-data</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #latestTimeseriesChipList>
+      <mat-chip
+        *ngFor="let key of customAnalysisForm.get('latestData').value;"
+        (removed)="removeKey(key, 'latestData')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.custom.calculate-latest-data' | translate}}"
+             [matChipInputFor]="latestTimeseriesChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'latestData')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+
+  <label translate class="tb-title no-padding" >tb.rulenode.custom.calculate-ts-data</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #oldKeyChipList>
+      <mat-chip
+        *ngFor="let key of customAnalysisForm.get('tsData').value;"
+        (removed)="removeKey(key, 'tsData')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.custom.calculate-ts-data' | translate}}"
+             [matChipInputFor]="oldKeyChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'tsData')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+
+  <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-type</label>
+  <mat-form-field fxFlex class="mat-block">
+    <mat-select formControlName="filterType">
+      <mat-option *ngFor="let type of filterTypes" [value]="type">
+        {{ filterTypeTranslation.get(type) | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label></mat-label>
+  <mat-checkbox fxFlex formControlName="likeFilter" style="padding-bottom: 16px;">
+    {{ 'tb.rulenode.specific.value-like-filter' | translate }}
+  </mat-checkbox>
+  <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-entity</label>
+  <mat-form-field fxFlex floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #filterEntityChipList>
+      <mat-chip
+        *ngFor="let key of customAnalysisForm.get('filterEntityNames').value;"
+        (removed)="removeKey(key, 'filterEntityNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+             [matChipInputFor]="filterEntityChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'filterEntityNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+</section>

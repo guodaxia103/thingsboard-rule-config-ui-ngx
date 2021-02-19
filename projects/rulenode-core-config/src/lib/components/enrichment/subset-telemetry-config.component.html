@@ -1,0 +1,32 @@
+<section [formGroup]="subsetTelemetryConfigForm" fxLayout="column">
+  <label translate class="tb-title tb-required">tb.rulenode.subset-devices</label>
+  <tb-kv-map-config
+    required
+    formControlName="subsetDevices"
+    requiredText="tb.rulenode.subset-devices-name-required"
+    keyText="tb.rulenode.subset-devices-name"
+    keyRequiredText="tb.rulenode.source-field-required"
+    valText="tb.rulenode.subset-devices-key"
+    valRequiredText="tb.rulenode.subset-devices-key-required">
+  </tb-kv-map-config>
+  <label translate class="tb-title tb-required">tb.rulenode.subset-father-device</label>
+
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.subset-father-device</mat-label>
+      <input matInput formControlName="fatherDeviceName" required>
+      <mat-error *ngIf="subsetTelemetryConfigForm.get('fatherDeviceName').hasError('required')">
+        {{ 'tb.rulenode.subset-devices-name-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.subset-father-device-key</mat-label>
+      <input matInput formControlName="fatherKey" required>
+      <mat-error *ngIf="subsetTelemetryConfigForm.get('fatherKey').hasError('required')">
+        {{ 'tb.rulenode.subset-father-device-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+</section>
+

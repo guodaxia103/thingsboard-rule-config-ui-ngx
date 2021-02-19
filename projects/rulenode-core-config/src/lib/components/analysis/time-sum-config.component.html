@@ -1,0 +1,83 @@
+<section [formGroup]="timeSumForm" fxLayout="column">
+  <label translate class="tb-title no-padding" required>tb.rulenode.list-attributes</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #latestTimeseriesChipList>
+      <mat-chip
+        *ngFor="let key of timeSumForm.get('listKeyNames').value;"
+        (removed)="removeKey(key, 'listKeyNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-attributes' | translate}}"
+             [matChipInputFor]="latestTimeseriesChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'listKeyNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+  <label translate class="tb-title no-padding">tb.rulenode.time.sum-time-type</label>
+  <mat-form-field fxFlex class="mat-block">
+    <mat-select formControlName="timeType">
+      <mat-option *ngFor="let type of timeTypes" [value]="type">
+        {{ timeTypeTranslation.get(type) | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <label translate class="tb-title no-padding">tb.rulenode.time.sum-suffix</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <input matInput formControlName="suffix">
+  </mat-form-field>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.time.sum-time-start</mat-label>
+      <input type="number" step="1" min="0" max="360" matInput formControlName="timeStart" required>
+      <mat-error *ngIf="timeSumForm.get('timeStart').hasError('required')">
+        {{ 'tb.rulenode.time.sum-time-start-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="timeSumForm.get('timeStart').hasError('min')">
+        {{ 'tb.rulenode.time.sum-time-start-range' | translate }}
+      </mat-error>
+      <mat-error *ngIf="timeSumForm.get('timeStart').hasError('max')">
+        {{ 'tb.rulenode.time.sum-time-start-range' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.time.sum-sum-suffix</mat-label>
+      <input matInput formControlName="sumSuffix">
+    </mat-form-field>
+  </div>
+
+  <mat-checkbox fxFlex formControlName="everyTime" style="padding-bottom: 16px;">
+    {{ 'tb.rulenode.minute.interval.compute.every-time' | translate }}
+  </mat-checkbox>
+  <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-type</label>
+  <mat-form-field fxFlex class="mat-block">
+    <mat-select formControlName="filterType">
+      <mat-option *ngFor="let type of filterTypes" [value]="type">
+        {{ filterTypeTranslation.get(type) | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label></mat-label>
+  <mat-checkbox fxFlex formControlName="likeFilter" style="padding-bottom: 16px;">
+    {{ 'tb.rulenode.specific.value-like-filter' | translate }}
+  </mat-checkbox>
+  <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-entity</label>
+  <mat-form-field fxFlex floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #filterEntityChipList>
+      <mat-chip
+        *ngFor="let key of timeSumForm.get('filterEntityNames').value;"
+        (removed)="removeKey(key, 'filterEntityNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+             [matChipInputFor]="filterEntityChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'filterEntityNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+</section>

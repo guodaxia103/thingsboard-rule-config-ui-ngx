@@ -1,0 +1,85 @@
+<section [formGroup]="valuesFilterForm" fxLayout="column">
+  <label translate class="tb-title no-padding">tb.rulenode.data.filter-filter-entity-name</label>
+  <div fxLayout="column" >
+    <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-type</label>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-select formControlName="filterType">
+        <mat-option *ngFor="let type of filterTypes" [value]="type">
+          {{ filterTypeTranslation.get(type) | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-label></mat-label>
+    <mat-checkbox fxFlex formControlName="likeFilter" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.specific.value-like-filter' | translate }}
+    </mat-checkbox>
+    <mat-form-field fxFlex floatLabel="always" class="mat-block">
+      <mat-label></mat-label>
+      <mat-chip-list #listNamesChipList>
+        <mat-chip
+          *ngFor="let key of valuesFilterForm.get('filterEntityNames').value;"
+          (removed)="removeKey(key, 'filterEntityNames')">
+          {{key}}
+          <mat-icon matChipRemove>close</mat-icon>
+        </mat-chip>
+        <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+               [matChipInputFor]="listNamesChipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addKey($event, 'filterEntityNames')"
+               [matChipInputAddOnBlur]="true"/>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <label translate class="tb-title no-padding">tb.rulenode.list-attributes</label>
+    <mat-form-field floatLabel="always" class="mat-block">
+      <mat-label></mat-label>
+      <mat-chip-list #latestTimeseriesChipList>
+        <mat-chip
+          *ngFor="let key of valuesFilterForm.get('listKeyNames').value;"
+          (removed)="removeKey(key, 'listKeyNames')">
+          {{key}}
+          <mat-icon matChipRemove>close</mat-icon>
+        </mat-chip>
+        <input matInput type="text" placeholder="{{'tb.rulenode.list-attributes' | translate}}"
+               style="max-width: 200px;"
+               [matChipInputFor]="latestTimeseriesChipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addKey($event, 'listKeyNames')"
+               [matChipInputAddOnBlur]="true"/>
+      </mat-chip-list>
+    </mat-form-field>
+    <mat-checkbox fxFlex formControlName="clearKeys" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.data.filter-clear-key' | translate }}
+    </mat-checkbox>
+  </div>
+  <label translate class="tb-title">tb.rulenode.values.filter-num-filter</label>
+  <tb-kv-map-config
+    formControlName="numFilter"
+    keyText="tb.rulenode.values.filter-num-filter-key"
+    keyRequiredText="tb.rulenode.values.filter-num-filter-key-required"
+    valText="tb.rulenode.values.filter-num-filter-formula"
+    valRequiredText="tb.rulenode.values.filter-num-filter-formula-required">
+  </tb-kv-map-config>
+
+  <label translate class="tb-title">tb.rulenode.values.filter-replace-value</label>
+  <tb-kv-map-config
+    formControlName="replaceValue"
+    keyText="tb.rulenode.values.filter-num-filter-key"
+    keyRequiredText="tb.rulenode.values.filter-num-filter-key-required"
+    valText="tb.rulenode.values.filter-replace-value-value"
+    valRequiredText="tb.rulenode.values.filter-replace-value-value-required">
+  </tb-kv-map-config>
+
+  <label translate class="tb-title">tb.rulenode.specific.value-replace</label>
+  <tb-kv-map-config
+    formControlName="replaceKey"
+    keyText="tb.rulenode.specific.value-replace-old-key"
+    keyRequiredText="tb.rulenode.specific.value-replace-old-key-required"
+    valText="tb.rulenode.specific.value-replace-new-key"
+    valRequiredText="tb.rulenode.specific.value-replace-new-key-required">
+  </tb-kv-map-config>
+
+
+</section>

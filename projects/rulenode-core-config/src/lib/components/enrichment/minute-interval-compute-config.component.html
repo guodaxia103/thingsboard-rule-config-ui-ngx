@@ -1,0 +1,95 @@
+<section [formGroup]="minuteIntervalComputeForm" fxLayout="column">
+  <label translate class="tb-title no-padding">tb.rulenode.list-attributes</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #latestTimeseriesChipList>
+      <mat-chip
+        *ngFor="let key of minuteIntervalComputeForm.get('listKeyNames').value;"
+        (removed)="removeKey(key, 'listKeyNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-attributes' | translate}}"
+             style="max-width: 200px;"
+             [matChipInputFor]="latestTimeseriesChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'listKeyNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+  <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.data-type</label>
+  <mat-form-field fxFlex class="mat-block">
+    <mat-select formControlName="dataType">
+      <mat-option *ngFor="let type of dataTypes" [value]="type">
+        {{ dataTypeTranslation.get(type) | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label></mat-label>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.minute.interval.compute.interval</mat-label>
+        <mat-select formControlName="intervalValue" required>
+          <mat-option *ngFor="let intervalValue of intervalValues" [value]="intervalValue">
+            {{ intervalValue }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.minute.interval.compute.am</mat-label>
+      <input matInput formControlName="am" required>
+      <mat-error *ngIf="minuteIntervalComputeForm.get('am').hasError('required')">
+        {{ 'tb.rulenode.minute.interval.compute.am-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column">
+    <mat-checkbox fxFlex formControlName="everyTime" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.minute.interval.compute.every-time' | translate }}
+    </mat-checkbox>
+    <mat-checkbox fxFlex formControlName="zero" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.minute.interval.compute.zero' | translate }}
+    </mat-checkbox>
+
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+      <mat-checkbox fxFlex formControlName="putOff" style="padding-bottom: 16px;">
+        {{ 'tb.rulenode.minute.interval.compute.putOff' | translate }}
+      </mat-checkbox>
+      <mat-form-field fxFlex class="mat-block">
+        <mat-label translate>tb.rulenode.minute.interval.compute.putHours</mat-label>
+        <input type="number" step="1" min="1" matInput formControlName="putHours" >
+      </mat-form-field>
+    </div>
+
+
+    <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-type</label>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-select formControlName="filterType">
+        <mat-option *ngFor="let type of filterTypes" [value]="type">
+          {{ filterTypeTranslation.get(type) | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-label></mat-label>
+    <mat-checkbox fxFlex formControlName="likeFilter" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.specific.value-like-filter' | translate }}
+    </mat-checkbox>
+    <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-entity</label>
+    <mat-form-field fxFlex floatLabel="always" class="mat-block">
+      <mat-label></mat-label>
+      <mat-chip-list #listNamesChipList>
+        <mat-chip
+          *ngFor="let key of minuteIntervalComputeForm.get('filterEntityNames').value;"
+          (removed)="removeKey(key, 'filterEntityNames')">
+          {{key}}
+          <mat-icon matChipRemove>close</mat-icon>
+        </mat-chip>
+        <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+               [matChipInputFor]="listNamesChipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addKey($event, 'filterEntityNames')"
+               [matChipInputAddOnBlur]="true"/>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</section>

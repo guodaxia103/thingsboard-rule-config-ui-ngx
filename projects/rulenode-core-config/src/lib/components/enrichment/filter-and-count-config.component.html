@@ -1,0 +1,107 @@
+<section [formGroup]="filterAndCountForm" fxLayout="column">
+  <label translate class="tb-title no-padding">tb.rulenode.list-attributes</label>
+  <mat-form-field floatLabel="always" class="mat-block">
+    <mat-label></mat-label>
+    <mat-chip-list #latestTimeseriesChipList>
+      <mat-chip
+        *ngFor="let key of filterAndCountForm.get('listKeyNames').value;"
+        (removed)="removeKey(key, 'listKeyNames')">
+        {{key}}
+        <mat-icon matChipRemove>close</mat-icon>
+      </mat-chip>
+      <input matInput type="text" placeholder="{{'tb.rulenode.list-attributes' | translate}}"
+             [matChipInputFor]="latestTimeseriesChipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addKey($event, 'listKeyNames')"
+             [matChipInputAddOnBlur]="true"/>
+    </mat-chip-list>
+  </mat-form-field>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.filter.and.count.interval-time-type</mat-label>
+      <mat-select formControlName="intervalTimeType">
+        <mat-option *ngFor="let type of intervalTimeTypes" [value]="type">
+          {{ intervalTimeTranslation.get(type) | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.filter.and.count.start-time</mat-label>
+      <input type="number" matInput formControlName="startTime" required>
+      <mat-error *ngIf="filterAndCountForm.get('startTime').hasError('required')">
+        {{ 'tb.rulenode.filter.and.count.start-time-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.filter.and.count.count</mat-label>
+      <input matInput formControlName="count" required>
+      <mat-error *ngIf="filterAndCountForm.get('count').hasError('required')">
+        {{ 'tb.rulenode.filter.and.count.count-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+      <mat-checkbox fxFlex formControlName="linkKey" style="padding-bottom: 16px;">
+        {{ 'tb.rulenode.filter.and.count.link-Key' | translate }}
+      </mat-checkbox>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.filter.and.count.rate-key</mat-label>
+      <input matInput formControlName="rateKey" required>
+      <mat-error *ngIf="filterAndCountForm.get('rateKey').hasError('required')">
+        {{ 'tb.rulenode.filter.and.count.rate-key-required' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-label translate>tb.rulenode.filter.and.count.rate-value</mat-label>
+      <input type="number" matInput formControlName="rateValue" >
+      <mat-hint innerHTML="{{ 'tb.rulenode.filter.and.count.rate-value-hint' | translate }}"></mat-hint>
+    </mat-form-field>
+  </div>
+  <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="8px">
+    <mat-checkbox fxFlex formControlName="filterInvalidKey" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.filter.and.count.filter-invalid-key' | translate }}
+    </mat-checkbox>
+    <mat-checkbox fxFlex formControlName="output" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.filter.and.count.output-count-data' | translate }}
+    </mat-checkbox>
+    <mat-checkbox fxFlex formControlName="everyTime" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.filter.and.count.every-time' | translate }}
+    </mat-checkbox>
+    <mat-checkbox fxFlex formControlName="dataCheck" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.filter.and.count.data-check' | translate }}
+    </mat-checkbox>
+  </div>
+  <div fxLayout="column">
+    <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-type</label>
+    <mat-form-field fxFlex class="mat-block">
+      <mat-select formControlName="filterType">
+        <mat-option *ngFor="let type of filterTypes" [value]="type">
+          {{ filterTypeTranslation.get(type) | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-label></mat-label>
+    <mat-checkbox fxFlex formControlName="likeFilter" style="padding-bottom: 16px;">
+      {{ 'tb.rulenode.specific.value-like-filter' | translate }}
+    </mat-checkbox>
+    <label translate class="tb-title no-padding">tb.rulenode.minute.interval.compute.filter-entity</label>
+    <mat-form-field fxFlex floatLabel="always" class="mat-block">
+      <mat-label></mat-label>
+      <mat-chip-list #listNamesChipList>
+        <mat-chip
+          *ngFor="let key of filterAndCountForm.get('filterEntityNames').value;"
+          (removed)="removeKey(key, 'filterEntityNames')">
+          {{key}}
+          <mat-icon matChipRemove>close</mat-icon>
+        </mat-chip>
+        <input matInput type="text" placeholder="{{'tb.rulenode.list-entity-name' | translate}}"
+               [matChipInputFor]="listNamesChipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               (matChipInputTokenEnd)="addKey($event, 'filterEntityNames')"
+               [matChipInputAddOnBlur]="true"/>
+      </mat-chip-list>
+    </mat-form-field>
+  </div>
+</section>

@@ -1,4 +1,4 @@
-import { EntitySearchDirection, EntityTypeFilter } from '@shared/public-api';
+import {EntitySearchDirection, EntityTypeFilter} from '@shared/public-api';
 
 export enum OriginatorSource {
   CUSTOMER = 'CUSTOMER',
@@ -20,6 +20,69 @@ export enum PerimeterType {
   CIRCLE = 'CIRCLE',
   POLYGON = 'POLYGON'
 }
+
+export enum IntervalComputeFilterType {
+  CONTAIN = 'CONTAIN',
+  EXCLUDE = 'EXCLUDE'
+}
+export const intervalComputeFilterTypeTranslations = new Map<IntervalComputeFilterType, string>(
+  [
+    [IntervalComputeFilterType.CONTAIN, 'tb.rulenode.interval.compute.filter-type-contain'],
+    [IntervalComputeFilterType.EXCLUDE, 'tb.rulenode.interval.compute.filter-type-contain'],
+  ]
+);
+
+export enum MinuteIntervalComputeFilterType {
+  NO='NO',
+  CONTAIN = 'CONTAIN',
+  EXCLUDE = 'EXCLUDE'
+}
+export const minuteIntervalComputeFilterTypeTranslations = new Map<MinuteIntervalComputeFilterType, string>(
+  [
+    [MinuteIntervalComputeFilterType.NO, 'tb.rulenode.minute.interval.compute.filter-type-no'],
+    [MinuteIntervalComputeFilterType.CONTAIN, 'tb.rulenode.minute.interval.compute.filter-type-contain'],
+    [MinuteIntervalComputeFilterType.EXCLUDE, 'tb.rulenode.minute.interval.compute.filter-type-exclude'],
+  ]
+);
+export enum FilterAndCountIntervalTimeType {
+  MINUTES='MINUTES',
+  HOURS = 'HOURS',
+  DAYS = 'DAYS'
+}
+
+export const filterAndCountIntervalTimeTranslations = new Map<FilterAndCountIntervalTimeType, string>(
+  [
+    [FilterAndCountIntervalTimeType.MINUTES, 'tb.rulenode.filter.and.count.interval-time-minutes'],
+    [FilterAndCountIntervalTimeType.HOURS, 'tb.rulenode.filter.and.count.interval-time-hours'],
+    [FilterAndCountIntervalTimeType.DAYS, 'tb.rulenode.filter.and.count.interval-time-days'],
+  ]
+);
+export enum TimeSumTimeType {
+  HOUR='HOUR',
+  DAY = 'DAY',
+  MONTH = 'MONTH',
+  YEAR = 'YEAR'
+}
+export const timeSumTimeTypeTranslations = new Map<TimeSumTimeType, string>(
+  [
+    [TimeSumTimeType.HOUR, 'tb.rulenode.time.sum-hour'],
+    [TimeSumTimeType.DAY, 'tb.rulenode.time.sum-day'],
+    [TimeSumTimeType.MONTH, 'tb.rulenode.time.sum-month'],
+    [TimeSumTimeType.YEAR, 'tb.rulenode.time.sum-year']
+  ]
+);
+
+
+export enum MinuteIntervalComputeDataType {
+  INCREMENT = 'INCREMENT',
+  INTERVAL='INTERVAL'
+}
+export const minuteIntervalComputeDataTypeTranslations = new Map<MinuteIntervalComputeDataType, string>(
+  [
+    [MinuteIntervalComputeDataType.INCREMENT, 'tb.rulenode.minute.interval.compute.data-type-increment'],
+    [MinuteIntervalComputeDataType.INTERVAL, 'tb.rulenode.minute.interval.compute.data-type-interval']
+  ]
+);
 
 export const perimeterTypeTranslations = new Map<PerimeterType, string>(
   [
